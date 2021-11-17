@@ -14,18 +14,9 @@ import (
 	//_ "github.com/denisenkom/go-mssqldb"
 )
 
-
 func main() {
 	ctx := context.Background()
 	var err error
-
-	/*var (
-		password = os.Getenv("MSSQL_DB_PASSWORD")
-		user = os.Getenv("MSSQL_DB_USER")
-		port = os.Getenv("MSSQL_DB_PORT")
-		database = os.Getenv("MSSQL_DB_DATABASE")
-	)*/
-	//connString := fmt.Sprintf("sqlserver://%s:%s@localhost:%s?database=%s", user, password, port, database)
 
 	//Comment out the line below and switch to "sql.Open(...)" to try with original "database/sql"
 	sqltrace.Register("sqlserver", &mssql.Driver{})
@@ -46,6 +37,3 @@ func main() {
 	}
 	fmt.Printf("User found: %v", usr)
 }
-
-/*Create a database image by running ./build_image.sh in ./docker/idpvrestored. Then run the database by doing docker run -it -p 1433:1433 coopnorge/mssql-dev:idpv-db
-*/
