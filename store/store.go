@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-
 	"time"
 )
 
@@ -19,24 +18,15 @@ type User struct {
 	Phone  string
 }
 
-
-// GetUser calls the Db for a user lookup by coopID
 func GetUser(ctx context.Context, ID string) (*User, error) {
-
-	u, err := getUserByIdentifier(ctx, newGetUserByIDStatement(ID))
-	if u != nil {
-		return u, err
-	}
-	return nil, err
-}
-
-func getUserByIdentifier(ctx context.Context, stmt statement) (*User, error) {
 	ctx, cancel, err := prepareForQuery(ctx)
 	defer cancel()
 	if err != nil {
 		return nil, err
 	}
 	user := &User{}
+
+	stmt := newGetUserByIDStatement(ID)
 
 	err = Database.Db.QueryRowContext(ctx, stmt.getQuery(), stmt.getNamed()...).Scan(&user.ID, &user.Name, &user.Email, &user.Phone)
 

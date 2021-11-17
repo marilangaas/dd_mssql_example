@@ -4,11 +4,6 @@ import (
 	"database/sql"
 )
 
-type statement interface {
-	getQuery() string
-	getNamed() []interface{}
-}
-
 type namedQuery struct {
 	query     string
 	namedArgs []sql.NamedArg
@@ -26,7 +21,6 @@ func newGetUserByIDStatement(ID string) *namedQuery {
 		namedArgs: []sql.NamedArg{sql.Named("Id", ID)},
 	}
 }
-
 
 func (s *namedQuery) getQuery() string {
 	return s.query
