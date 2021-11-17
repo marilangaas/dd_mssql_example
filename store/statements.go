@@ -4,13 +4,11 @@ import (
 	"database/sql"
 )
 
-// statement interface to make sql query with named parameters
 type statement interface {
 	getQuery() string
 	getNamed() []interface{}
 }
 
-// selectUserByProfileKey should conform to statement interface
 type namedQuery struct {
 	query     string
 	namedArgs []sql.NamedArg
