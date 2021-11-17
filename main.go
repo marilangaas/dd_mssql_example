@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	mssql "github.com/denisenkom/go-mssqldb"
 	sqltrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/database/sql"
@@ -20,7 +19,7 @@ func main() {
 
 	//Comment out the line below and switch to "sql.Open(...)" to try with original "database/sql"
 	sqltrace.Register("sqlserver", &mssql.Driver{})
-	store.Database.Db, err = sql.Open("sqlserver", "sqlserver://sa:myPassw0rd@localhost:1433?database=ddExample")
+	store.Database.Db, err = sqltrace.Open("sqlserver", "sqlserver://sa:myPassw0rd@localhost:1433?database=ddExample")
 	if err != nil {
 		log.Fatal(err)
 	}
